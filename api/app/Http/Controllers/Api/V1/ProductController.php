@@ -8,10 +8,10 @@ use App\Http\Requests\Api\V1\Product\StoreProductRequest;
 use App\Http\Requests\Api\V1\Product\UpdateProductRequest;
 use App\Http\Resources\Api\V1\Product\ProductResource;
 use App\Http\Resources\Api\V1\Product\ProductCollection;
-
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Strorage;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -22,7 +22,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return new ProductCollection(Product::all());
     }
 
     /**
@@ -46,18 +46,18 @@ class ProductController extends Controller
 
         try {
             //code...
-            $imageName = Str::random(32).".".$request->getClientOriginalExtention();
+            $imageName = Str::random(32).".".$request->image->getClientOriginalExtension();
 
             Product::create([
-                'name' => $this->name,
-                'slug' => $this->slug,
+                'name' => $request->name,
+                'slug' => $request->slug,
                 'price' => $request->price,
                 'image' => $imageName,
-                'thumb_url' => $this->thumbUrl,
-                'category_id' => $this->categoryId,
+                'thumb_url' => $request->thumbUrl,
+                'category_id' => $request->category_id,
             ]);
 
-            Storage::disk('public/images/product')->put($imageName, file_get_contents($request->image));
+            Storage::disk('public')->put($imageName, file_get_contents($request->image));
 
             return response()->json('Product Created', 200);
 
@@ -66,7 +66,6 @@ class ProductController extends Controller
                 "message" => "Something went really wrong",
             ], 500);
         }
-
     }
 
     /**
@@ -77,7 +76,18 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            //code...
+            $product = Product::findOrFail($id);
+
+            return new ProductResource($product);
+
+        } catch(ModelNotFoundException $e) {
+            return response()->json([
+                "message" => "Product Not Found",
+            ], 404);
+        }
+
     }
 
     /**
@@ -98,9 +108,37 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, $id)
     {
-        //
+        $product = Product::find($id);
+
+            if(!$product) {
+                return response()->json([
+                    "message" => "Product Not Found",
+                ], 404);
+            }
+
+
+
+            // $imageName ='';
+            // $storage = Storage::disk('public');
+            // if($request->hasFile('image')) {
+            //     if($storage->exists($product->image)){
+            //         $storage->delete($product->image);
+            //     }
+
+            //     $imageName = Str::random(32).".".$request->image->getClientOriginalExtension();
+
+            //     $product->image = $imageName;
+
+            //     $storage->put($imageName, file_get_contents($request->image));
+
+            // } else {
+            //     $product->image = $request->image;
+            // }
+
+            $product->update($request->validated());
+            return response()->json([ $product]);
     }
 
     /**
@@ -114,3 +152,44 @@ class ProductController extends Controller
         //
     }
 }
+
+// try {
+        //     $product = Product::find($id);
+
+        //     if(!$product) {
+        //         return response()->json([
+        //             "message" => "Product Not Found",
+        //         ], 404);
+        //     }
+
+        //     // $product->name = $request->name;
+        //     // $product->slug = $request->slug;
+        //     // $product->price = $request->price;
+        //     // $product->thumb_url = $request->thumb_url;
+        //     // $product->category_id = $request->category_id;
+
+        //     // if($request->image) {
+        //     //     $storage = Storage::disk('public');
+
+        //     //     if($storage->exists($product->image)){
+        //     //         $storage->delete($product->image);
+        //     //     }
+
+        //     //     $imageName = Str::random(32).".".$request->image->getClientOriginalExtension();
+
+        //     //     $product->image = $imageName;
+
+        //     //     $storage->put($imageName, file_get_contents($request->image));
+        //     // }
+
+        //     // $product->save();
+
+        //     return response()->json('Product Updated');
+
+
+
+        // } catch  (\Exception $err) {
+        //     return response()->json([
+        //         "message" => "Something went really wrong",
+        //     ], 500);
+        // }

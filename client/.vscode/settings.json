@@ -1,0 +1,13 @@
+{
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "cSpell.words": [
+        "biết",
+        "clsx",
+        "colours",
+        "dụng",
+        "fontawesome",
+        "fortawesome",
+        "tippyjs"
+    ]
+}
