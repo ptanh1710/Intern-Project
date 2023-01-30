@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 import style from './Product.module.scss';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(style);
 
@@ -35,13 +36,27 @@ function FeatureProduct() {
                 <p>Components Title ...</p>
                 <div className={cx('row')}>
                     {MOCK_PRODUCT.map((item) => (
-                        <div className={cx('col')}>
+                        <div className={cx('col')} key={item.id}>
                             <div className={cx('single')}>
                                 <div className={cx('image')}>
                                     <img src={item.image} alt={item.name} />
+                                    <div className={cx('icon')}>
+                                        <Link to={'/'}>
+                                            <FontAwesomeIcon icon={faHeart} />
+                                        </Link>
+                                        <Link to={'/'}>
+                                            <FontAwesomeIcon
+                                                icon={faShoppingCart}
+                                            />
+                                        </Link>
+                                    </div>
                                 </div>
-                                <div className={cx('body')}></div>
-                                <div className={cx('icon')}></div>
+                                <div className={cx('body')}>
+                                    <Link to={'/'}>
+                                        <h4>{item.name}</h4>
+                                        <p>{item.price} đ</p>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     ))}

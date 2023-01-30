@@ -22,11 +22,11 @@
 }
 
 .col {
-    flex: 0 0 25%;
-    max-width: 25%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
 }
 
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 768px) {
     .col {
         flex: 0 0 50%;
         max-width: 50%;
@@ -38,4 +38,105 @@
         flex: 0 0 100%;
         max-width: 100%;
     }
+}
+
+// Feature - Single Product
+.single {
+    width: 290px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.single,
+.body {
+    border: 1px solid #f0f2f1;
+    text-align: left;
+}
+
+.image {
+    position: relative;
+    width: 100%;
+    height: 347px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.body {
+    width: 100%;
+    padding: 22px 25px 18px;
+
+    a {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0.5rem;
+    }
+
+    h4 {
+        font-size: 0.6rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        margin-bottom: 0px;
+        transition: all 300ms linear 0s;
+    }
+
+    p {
+        font-size: 0.76rem;
+        font-weight: 500;
+        line-height: 16px;
+        color: #2a2a2a;
+    }
+}
+
+.icon {
+    // visibility: hidden;
+    display: inline-block;
+    position: absolute;
+    background-color: var(--white);
+    width: 85%;
+    margin: 0 auto;
+    bottom: -1.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 400ms ease;
+    padding: 0.1rem 0;
+
+    a {
+        width: 1.4rem;
+        height: 1.4rem;
+        color: var(--black);
+        background-color: var(--white-pink);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.3s linear;
+        cursor: pointer;
+    }
+
+    a:hover {
+        color: var(--white-pink);
+        background-color: var(--black);
+    }
+
+    a:active {
+        background-color: var(--white-smoke);
+    }
+}
+
+.single:hover .image .icon {
+    bottom: 0;
 }
