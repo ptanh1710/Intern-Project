@@ -108,18 +108,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, $id)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        $product = Product::find($id);
-
-            if(!$product) {
-                return response()->json([
-                    "message" => "Product Not Found",
-                ], 404);
-            }
-
-
-
             // $imageName ='';
             // $storage = Storage::disk('public');
             // if($request->hasFile('image')) {
@@ -137,8 +127,11 @@ class ProductController extends Controller
             //     $product->image = $request->image;
             // }
 
-            $product->update($request->validated());
-            return response()->json([ $product]);
+
+
+            $imageFile = $request->file('image');
+
+            return response()->json($imageFile, 202);
     }
 
     /**

@@ -13,7 +13,9 @@
         |_ User Payment Shop: [BASE_URL]/user/purchase
 
     |_ Product: [BASE_URL]/product
-        |_ Product Detail: [BASE_URL]/product/_name-or-Id-or-slug
+        |_ Products: [BASE_URL]/products/
+        |_ Product Detail: [BASE_URL]/products/detail/_name-or-Id-or-slug
 
     |_ Cart: [BASE_URL]/cart
 
+# useReducer + context api

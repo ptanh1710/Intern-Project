@@ -17,6 +17,10 @@
     display: flex;
     flex-wrap: wrap;
     .col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         padding: 0 15px;
     }
 }
@@ -86,6 +90,10 @@
         font-weight: 400;
         text-transform: uppercase;
         margin-bottom: 0px;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         transition: all 300ms linear 0s;
     }
 
@@ -139,4 +147,10 @@
 
 .single:hover .image .icon {
     bottom: 0;
+}
+
+// Products Page
+.content {
+    display: flex;
+    gap: 0.5rem;
 }

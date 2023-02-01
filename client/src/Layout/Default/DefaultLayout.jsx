@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import classNames from 'classnames/bind';
-import { Header } from '../../Header';
+import { Header } from '../components';
 
 import style from './Default.module.scss';
 

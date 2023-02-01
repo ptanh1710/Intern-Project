@@ -1,15 +1,20 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-    baseURL: process.env.REACT_APP_BASE_URL,
+    baseURL: 'https://fakestoreapi.com/',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+    },
 });
 
 // Add a request interceptor
-axios.interceptors.request.use(
+axiosClient.interceptors.request.use(
     function (config) {
         // Do something before request is sent
         const token = localStorage.getItem('ACCESS_TOKEN');
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.Authorization = `${token}`;
+        // config.headers.Authorization = `Bearer ${token}`;
 
         return config;
     },
@@ -20,7 +25,7 @@ axios.interceptors.request.use(
 );
 
 // Add a response interceptor
-axios.interceptors.response.use(
+axiosClient.interceptors.response.use(
     function (response) {
         // Any status code that lie within the range of 2xx cause this function to trigger
         // Do something with response data

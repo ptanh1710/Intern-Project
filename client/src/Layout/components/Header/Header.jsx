@@ -72,10 +72,10 @@ function Header(props) {
                             <Link to={'/'}>Home</Link>
                         </div>
                         <div className={cx('menu-item')}>
-                            <Link to={'/'}>Products</Link>
+                            <Link to={'/products'}>Products</Link>
                         </div>
                         <div className={cx('menu-item')}>
-                            <Link to={'/'}>Contact</Link>
+                            <Link to={'/contact'}>Contact</Link>
                         </div>
                         <div className={cx('menu-item')}>
                             <Link to={'/cart'}>

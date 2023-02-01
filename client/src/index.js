@@ -5,13 +5,16 @@ import router from './router';
 import App from './App';
 import './assets/scss/global.scss';
 import reportWebVitals from './reportWebVitals';
+import ShopProvider from './contexts/shopContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <RouterProvider router={router}>
-            <App />
-        </RouterProvider>
+        <ShopProvider>
+            <RouterProvider router={router}>
+                <App />
+            </RouterProvider>
+        </ShopProvider>
     </React.StrictMode>,
 );
 

@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { DefaultLayout, GuestLayout } from '../components/Layout/';
-import { Home, Cart, SignIn, SignUp, User, Detail } from '../pages';
+import { DefaultLayout, GuestLayout } from '../Layout';
+import { Home, Cart, SignIn, SignUp, User, Products, Detail } from '../pages';
 
 const router = createBrowserRouter([
     {
@@ -12,12 +12,20 @@ const router = createBrowserRouter([
                 element: <Home />,
             },
             {
-                path: '/user',
+                path: '/user/*',
                 element: <User />,
             },
             {
                 path: '/cart',
                 element: <Cart />,
+            },
+            {
+                path: '/products/*',
+                element: <Products />,
+            },
+            {
+                path: 'product/:id',
+                element: <Detail />,
             },
         ],
     },

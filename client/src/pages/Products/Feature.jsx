@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -8,38 +9,56 @@ import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(style);
 
-const MOCK_PRODUCT = [
-    {
-        id: 1,
-        name: 'Product1',
-        price: 250000,
-        image: 'https://preview.colorlib.com/theme/eiser/img/product/feature-product/f-p-1.jpg.webp',
-    },
-    {
-        id: 2,
-        name: 'Product2',
-        price: 300000,
-        image: 'https://preview.colorlib.com/theme/eiser/img/product/feature-product/f-p-1.jpg.webp',
-    },
-    {
-        id: 3,
-        name: 'Product3',
-        price: 150000,
-        image: 'https://preview.colorlib.com/theme/eiser/img/product/feature-product/f-p-1.jpg.webp',
-    },
-];
+// const MOCK_PRODUCT = [
+//     {
+//         id: 1,
+//         name: 'Product1',
+//         price: 250000,
+//         image: 'https://preview.colorlib.com/theme/eiser/img/product/feature-product/f-p-1.jpg.webp',
+//     },
+//     {
+//         id: 2,
+//         name: 'Product2',
+//         price: 300000,
+//         image: 'https://preview.colorlib.com/theme/eiser/img/product/feature-product/f-p-1.jpg.webp',
+//     },
+//     {
+//         id: 3,
+//         name: 'Product3',
+//         price: 150000,
+//         image: 'https://preview.colorlib.com/theme/eiser/img/product/feature-product/f-p-1.jpg.webp',
+//     },
+//     {
+//         id: 4,
+//         name: 'Product4',
+//         price: 150000,
+//         image: 'https://preview.colorlib.com/theme/eiser/img/product/feature-product/f-p-1.jpg.webp',
+//     },
+//     {
+//         id: 5,
+//         name: 'Product5',
+//         price: 150000,
+//         image: 'https://preview.colorlib.com/theme/eiser/img/product/feature-product/f-p-1.jpg.webp',
+//     },
+//     {
+//         id: 6,
+//         name: 'Product6',
+//         price: 150000,
+//         image: 'https://preview.colorlib.com/theme/eiser/img/product/feature-product/f-p-1.jpg.webp',
+//     },
+// ];
 
-function FeatureProduct() {
+function FeatureProduct({ products }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 <p>Components Title ...</p>
                 <div className={cx('row')}>
-                    {MOCK_PRODUCT.map((item) => (
+                    {products.map((item) => (
                         <div className={cx('col')} key={item.id}>
                             <div className={cx('single')}>
                                 <div className={cx('image')}>
-                                    <img src={item.image} alt={item.name} />
+                                    <img src={item.image} alt={item.title} />
                                     <div className={cx('icon')}>
                                         <Link to={'/'}>
                                             <FontAwesomeIcon icon={faHeart} />
@@ -52,8 +71,8 @@ function FeatureProduct() {
                                     </div>
                                 </div>
                                 <div className={cx('body')}>
-                                    <Link to={'/'}>
-                                        <h4>{item.name}</h4>
+                                    <Link to={`/detail/${item.id}`}>
+                                        <h4 title={item.title}>{item.title}</h4>
                                         <p>{item.price} đ</p>
                                     </Link>
                                 </div>
@@ -65,5 +84,9 @@ function FeatureProduct() {
         </div>
     );
 }
+
+FeatureProduct.propsTypes = {
+    products: PropTypes.array.isRequired,
+};
 
 export default FeatureProduct;
