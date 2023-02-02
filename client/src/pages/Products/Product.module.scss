@@ -16,6 +16,8 @@
 .row {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
+
     .col {
         display: flex;
         flex-direction: column;
@@ -153,4 +155,9 @@
 .content {
     display: flex;
     gap: 0.5rem;
+    width: 100%;
+}
+
+.right {
+    flex: 1;
 }

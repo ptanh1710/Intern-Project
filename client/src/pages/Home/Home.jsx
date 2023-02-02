@@ -9,10 +9,10 @@ import { useShopContext } from '../../hooks/useShopContext';
 const cx = classNames.bind(style);
 
 function Home() {
-    const { products, fetchProduct } = useShopContext();
+    const { products, fetchProducts } = useShopContext();
 
     useEffect(() => {
-        fetchProduct({ limit: 6 });
+        fetchProducts({ limit: 6 });
     }, []);
 
     return (

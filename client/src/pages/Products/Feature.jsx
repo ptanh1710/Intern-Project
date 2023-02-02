@@ -71,7 +71,7 @@ function FeatureProduct({ products }) {
                                     </div>
                                 </div>
                                 <div className={cx('body')}>
-                                    <Link to={`/detail/${item.id}`}>
+                                    <Link to={`/product/${item.id}/detail`}>
                                         <h4 title={item.title}>{item.title}</h4>
                                         <p>{item.price} đ</p>
                                     </Link>
