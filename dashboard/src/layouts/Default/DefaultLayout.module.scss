@@ -1,0 +1,23 @@
+@import './../../components/GlobalStyle/variables';
+
+.wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.nav {
+    width: 240px;
+    height: 100%;
+}
+
+.container {
+    width: 100%;
+}
+
+.content {
+    width: 100%;
+    min-height: 91vh;
+    background-color: rgb(242, 242, 242);
+}

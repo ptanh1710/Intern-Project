@@ -1,0 +1,99 @@
+@import '../../components/GlobalStyle/variables';
+
+.wrapper {
+    width: 100%;
+    padding: 0.3rem 0.5rem;
+}
+
+// Brand List
+.content {
+    width: 95%;
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    border: 1px solid rgb(226, 226, 226);
+    background-color: $white;
+    border-radius: 0.3rem;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+table {
+    width: 100%;
+    border: none;
+    text-align: center;
+    // overflow: hidden;
+
+    td,
+    th {
+        position: relative;
+    }
+
+    thead th {
+        border-bottom: 1px solid rgb(210, 210, 210);
+        padding: 0.5rem 0;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    td {
+        padding: 0.5rem 0;
+    }
+
+    tbody tr:hover {
+        cursor: pointer;
+        background-color: rgb(184, 185, 186);
+    }
+}
+
+.infomation {
+    text-align: left;
+    // line-height: 1.4;
+
+    h4 {
+        font-size: 0.7rem;
+        font-weight: 600;
+    }
+
+    p {
+        font-size: 0.6rem;
+        font-weight: 500;
+
+        span {
+            font-weight: 400;
+        }
+    }
+}
+
+// Brand Created / Updated
+.container {
+    width: 50%;
+    margin: 0 auto;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid rgb(226, 226, 226);
+    background-color: $white;
+    border-radius: 0.3rem;
+
+    h4 {
+        padding-top: 0.5rem;
+        padding-bottom: 0.8rem;
+        text-align: center;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: $green;
+    }
+
+    form {
+        padding: 0 0.8rem;
+    }
+}

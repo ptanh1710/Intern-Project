@@ -7,6 +7,7 @@ import {
     faMinus,
     faShoppingBag,
 } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 import { useShopContext } from '../../hooks/useShopContext';
 import style from './Detail.module.scss';
@@ -18,9 +19,23 @@ function Detail() {
 
     let { id } = useParams();
 
-    // Can Clean up Function when id was returned => need additional upgrade
+    // Can Clean up Function when id was returned => need an additional upgrade
     useEffect(() => {
-        fetchProductDetail(id);
+        const source = axios.CancelToken.source();
+        let isMounted = true;
+        try {
+            isMounted = true;
+            if (isMounted) {
+                fetchProductDetail(id, { cancelToken: source.token });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+        return () => {
+            isMounted = false;
+            source.cancel();
+        };
     }, [id, fetchProductDetail, product]);
 
     return (
@@ -33,11 +48,9 @@ function Detail() {
                     <div className={cx('info')}>
                         <h4>{product.title}</h4>
                         <div className={cx('')}>
+                            <p>{/* Rate <b>{product.rating.rate}</b> */}</p>
                             <p>
-                                Rate <b>{product.rating.rate}</b>
-                            </p>
-                            <p>
-                                Stocking <b>{product.rating.count}</b>
+                                {/* Stocking <b>{product.rating.count}</b> */}
                             </p>
                         </div>
                         <div className={cx('')}>
@@ -81,10 +94,7 @@ function Detail() {
                             </tr>
                             <tr>
                                 <td>Rating</td>
-                                <td>
-                                    Rate: {product.rating.rate} - Count:{' '}
-                                    {product.rating.count}
-                                </td>
+                                <td>Rate: - Count: </td>
                             </tr>
                             <tr>
                                 <td>Description</td>

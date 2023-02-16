@@ -9,7 +9,7 @@ function ShopProvider({ children }) {
     const [products, setProducts] = useState([]);
     const [product, setProduct] = useState({});
 
-    // Can Clean up Function when data was returned => need additional upgrade
+    // Can Clean up Function when data was returned => need an additional upgrade
 
     // Fetch Categories
     const fetchCategory = async () => {
@@ -23,9 +23,10 @@ function ShopProvider({ children }) {
         setProducts(productList.data);
     };
 
-    // Fetch Product Detail with ID
-    const fetchProductDetail = async (id) => {
-        const productDetail = await productsApi.get(id);
+    // Không nên gọi detail id tại đây
+    // Fetch Product Detail with ID => Warning: Perfromance memory leak
+    const fetchProductDetail = async (id, params) => {
+        const productDetail = await productsApi.get(id, params);
         setProduct(productDetail.data);
     };
 
