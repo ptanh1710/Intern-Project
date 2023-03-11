@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Brand\StoreBrandRequest;
+use App\Http\Requests\Api\V1\Brand\UpdateBrandRequest;
 use App\Http\Resources\Api\V1\Brand\BrandCollection;
 use App\Http\Resources\Api\V1\Brand\BrandResource;
 use App\Models\Brand;
@@ -19,6 +20,28 @@ class BrandController extends Controller
     public function index()
     {
         return new BrandCollection(Brand::all());
+    }
+
+    public function example(Request $request) {
+        $query = Brand::query();
+        //  Search query request:  .../brands?q=...
+        if($q = $request->input('q')) {
+            $query->where('name', 'LIKE', '%'.$q.'%');
+        }
+
+        //  Sort query request:  .../brands?sort=...
+        if($sort = $request->input('sort')) {
+            $query->orderBy('name', $sort);
+        }
+
+        // Limit query request:  .../brands?limit=...
+        if($limit = $request->input('limit')) {
+            $query->limit($limit);
+        }
+
+        $brands = $query->get();
+
+        return new BrandCollection($brands);
     }
 
     /**
@@ -59,6 +82,19 @@ class BrandController extends Controller
         return new BrandResource($brand);
     }
 
+    public function find(Request $request) {
+
+
+        // $find = Brand::where('slug', $slug)->first();
+        // return $request;
+        // if(!$find) {
+        //     return response()->json(['message' => 'Not find data']);
+        // }
+
+        // return new BrandResource($find);
+
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -77,9 +113,10 @@ class BrandController extends Controller
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brand $brand)
+    public function update(UpdateBrandRequest $request, Brand $brand)
     {
-        //
+        $brand->update($request->validated());
+        return response()->json('Brand Updated');
     }
 
     /**

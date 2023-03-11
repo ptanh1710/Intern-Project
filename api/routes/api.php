@@ -26,8 +26,14 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('products', ProductController::class);
     Route::apiResource('brands', BrandController::class);
+    Route::get('example', [BrandController::class, 'example']);
+
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::post('logout', [AuthController::class, 'logout']);
 });
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
-Route::post('logout', [AuthController::class, 'logout']);

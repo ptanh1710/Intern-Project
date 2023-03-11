@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faPenToSquare,
+    faTrashCan,
+    faSquarePlus,
+} from '@fortawesome/free-regular-svg-icons';
+import { format } from 'date-fns';
+import axios from 'axios';
 
 import Button from '../../../components/Button/Button';
 import styles from '../Brand.module.scss';
+import brandsApi from '../../../api/brands.js';
 
 const cx = classNames.bind(styles);
 
@@ -26,48 +33,61 @@ const tableTHead = [
     },
 ];
 
-const MOCK_DATA = [
-    {
-        id: 1,
-        name: 'CTY 1001212',
-        email: 'test@example.com',
-        phone: '123-456-789',
-        date: '02/12/2020',
-        status: 1,
-    },
-    {
-        id: 2,
-        name: 'CTY 100135656',
-        email: 'test@example.com',
-        phone: '123-456-789',
-        date: '06/30/2021',
-        status: 0,
-    },
-    {
-        id: 3,
-        name: 'CTY 1001212',
-        email: 'test@example.com',
-        phone: '123-456-789',
-        date: '02/12/2020',
-        status: 1,
-    },
-    {
-        id: 4,
-        name: 'CTY 100135656',
-        email: 'test@example.com',
-        phone: '123-456-789',
-        date: '06/30/2021',
-        status: 0,
-    },
-];
-
 function List() {
+    const [brands, setBrands] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        setIsLoading(true);
+        const controller = new AbortController();
+
+        const getBrands = async () => {
+            try {
+                const response = await brandsApi.getAll({
+                    signal: controller.signal,
+                });
+                if (
+                    response.status === 200 ||
+                    response.data.status === 'success'
+                ) {
+                    setBrands(response.data.data);
+                    setIsLoading(false);
+                }
+            } catch (error) {
+                if (axios.isCancel(error)) {
+                    console.log('Cancelled');
+                } else throw error;
+            }
+        };
+        getBrands();
+        return () => {
+            setIsLoading(true);
+            controller.abort();
+        };
+    }, []);
+
+    const handleDeleteItem = (e, id) => {
+        e.preventDefault();
+        console.log('Deleted', id);
+    };
+
+    const handleOnActived = (e, id) => {
+        e.preventDefault();
+        console.log('is actived', id);
+    };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
                 <div className={cx('header')}>
                     <h4>Brand List</h4>
-                    <Button to={'create'}>Add brands</Button>
+                    <Button
+                        to={'create'}
+                        primary
+                        leftIcon={<FontAwesomeIcon icon={faSquarePlus} />}
+                    >
+                        Add brands
+                    </Button>
                 </div>
                 <table cellSpacing={0}>
                     <thead>
@@ -80,7 +100,12 @@ function List() {
                         </tr>
                     </thead>
                     <tbody>
-                        {MOCK_DATA.map((item, index) => (
+                        {isLoading && (
+                            <tr>
+                                <td>Loading...</td>
+                            </tr>
+                        )}
+                        {brands.map((item, index) => (
                             <tr key={item.id}>
                                 <th scope="row">{index + 1}</th>
                                 <td>
@@ -94,15 +119,57 @@ function List() {
                                         </p>
                                     </div>
                                 </td>
-                                <td>{item.date}</td>
                                 <td>
-                                    {item.status === 1
-                                        ? 'Actived'
-                                        : 'Unactived'}
+                                    {format(new Date(item.date), 'dd/MM/yyyy')}
                                 </td>
                                 <td>
-                                    <Button to={item.id + '/edit'}>Edit</Button>{' '}
-                                    <Button>Delete</Button>
+                                    {item.status === 1 ? (
+                                        <Button
+                                            onClick={(e) =>
+                                                handleOnActived(e, item.id)
+                                            }
+                                            success
+                                        >
+                                            Actived
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            onClick={(e) =>
+                                                handleOnActived(e, item.id)
+                                            }
+                                            warning
+                                        >
+                                            Unactived
+                                        </Button>
+                                    )}
+                                </td>
+                                <td>
+                                    <div className={cx('actions')}>
+                                        <Button
+                                            to={item.id + '/edit'}
+                                            primary
+                                            leftIcon={
+                                                <FontAwesomeIcon
+                                                    icon={faPenToSquare}
+                                                />
+                                            }
+                                        >
+                                            Edit
+                                        </Button>{' '}
+                                        <Button
+                                            error
+                                            onClick={(e) =>
+                                                handleDeleteItem(e, item.id)
+                                            }
+                                            leftIcon={
+                                                <FontAwesomeIcon
+                                                    icon={faTrashCan}
+                                                />
+                                            }
+                                        >
+                                            Delete
+                                        </Button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}

@@ -13,7 +13,7 @@ class UpdateBrandRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class UpdateBrandRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|min:2',
+            'phone' => 'min:8|string',
+            'email' => 'required|email|string',
+            'address' => 'nullable|string',
+            'status' => 'nullable|boolean',
         ];
     }
 }

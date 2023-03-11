@@ -11,19 +11,15 @@ import Tippy from '@tippyjs/react/headless';
 import Button from '../../../components/Button/Button';
 
 import styles from './Header.module.scss';
-import { Link } from 'react-router-dom';
+import { useLoginContext } from '../../../hooks/useLoginContext';
+import axiosClient from '../../../api/axiosClient';
 
 const cx = classNames.bind(styles);
-
-const user = {
-    name: 'Tom Cook',
-    email: 'tom@example.com',
-};
 
 const userNavigation = [
     {
         name: 'Your Profile',
-        to: '/dashboard',
+        to: '/user',
         icon: <FontAwesomeIcon icon={faIdCard} />,
     },
     {
@@ -31,14 +27,20 @@ const userNavigation = [
         to: '/dashboard',
         icon: <FontAwesomeIcon icon={faGear} />,
     },
-    {
-        name: 'Sign out',
-        to: '/logout',
-        icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
-    },
 ];
 
 function Header() {
+    const { user, setUser, setToken } = useLoginContext();
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        console.log('logout');
+        axiosClient.post('/logout').then((response) => {
+            setUser({});
+            setToken(null);
+        });
+    };
+
     return (
         <header className={cx('header')}>
             <div className={cx('search')}></div>
@@ -49,6 +51,8 @@ function Header() {
 
                 <Tippy
                     interactive={true}
+                    zIndex={999}
+                    delay={[0, 1280]}
                     render={(attrs) => (
                         <div className={cx('box')} tabIndex="-1" {...attrs}>
                             {userNavigation.map((item, index) => (
@@ -56,12 +60,28 @@ function Header() {
                                     <Button
                                         to={item.to}
                                         leftIcon={item.icon}
+                                        large
                                         className={cx('text')}
                                     >
                                         {item.name}
                                     </Button>
                                 </div>
                             ))}
+                            <div className={cx('box-item')}>
+                                <Button
+                                    onClick={handleLogout}
+                                    className={cx('text')}
+                                    large
+                                    leftIcon={
+                                        <FontAwesomeIcon
+                                            icon={faArrowRightFromBracket}
+                                        />
+                                    }
+                                >
+                                    Sign out
+                                </Button>
+                            </div>
+                            <div className={cx('box-arrow_top')} />
                         </div>
                     )}
                 >

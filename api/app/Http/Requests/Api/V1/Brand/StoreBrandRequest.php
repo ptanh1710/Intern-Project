@@ -28,6 +28,7 @@ class StoreBrandRequest extends FormRequest
             'phone' => 'min:8|string',
             'email' => 'required|email|string',
             'address' => 'nullable|string',
+            'status' => 'nullable|boolean',
         ];
     }
 }

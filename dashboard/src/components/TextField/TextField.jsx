@@ -7,7 +7,7 @@ import styles from './TextField.module.scss';
 const cx = classNames.bind(styles);
 
 function TextField(props, ref) {
-    console.log(props);
+    // console.log(props);
     const handleOnBlur = (event) => {
         const { value } = event.target;
         const { onBlur, name } = props;

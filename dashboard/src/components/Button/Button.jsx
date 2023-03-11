@@ -8,8 +8,11 @@ function Button({
     to,
     href,
     primary = false,
-    outline = false,
+    error = false,
+    success = false,
+    warning = false,
     text = false,
+    outline = false,
     rounded = false,
     disabled = false,
     small = false,
@@ -18,18 +21,12 @@ function Button({
     className,
     leftIcon,
     rightIcon,
-    onClick = () => {},
+    onClick,
     ...passProps
 }) {
-    const handleClick = (e) => {
-        // e.preventDefault();
-        // console.log('s');
-        // onClick();
-    };
-
     let Comp = 'button';
     const props = {
-        onClick: handleClick,
+        onClick,
         ...passProps,
     };
 
@@ -53,6 +50,9 @@ function Button({
     const classes = cx('wrapper', {
         [className]: className,
         primary,
+        error,
+        success,
+        warning,
         outline,
         text,
         disabled,

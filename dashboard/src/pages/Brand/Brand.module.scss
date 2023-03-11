@@ -74,6 +74,15 @@ table {
     }
 }
 
+.actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 0.1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 // Brand Created / Updated
 .container {
     width: 50%;

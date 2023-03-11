@@ -1,16 +1,19 @@
+@import '../GlobalStyle/variables';
+
 .wrapper {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    // min-width: 100px;
-    padding: 9px 16px;
+    padding: 7px 13px;
+    height: 38px;
     border-radius: 4px;
     font-size: 0.6rem;
     font-weight: 700;
     cursor: pointer;
-    background-color: var(--white);
+    background-color: $white;
     border: 1px solid transparent;
     user-select: none;
+    transition: all 0.2s ease-in-out;
 
     + .wrapper {
         margin-left: 8px;
@@ -39,29 +42,74 @@
     }
 }
 
-.primary {
-    color: var(--white);
-    background-color: var(--primary);
-    border-color: var(--primary);
+.text {
+    width: 100%;
+    padding: 0;
+    background-color: transparent;
+    font-size: 0.7rem;
 
     &:hover {
-        border-color: var(--primary);
-        background: linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.06),
-                rgba(0, 0, 0, 0.06)
-            ),
-            #fe2c55;
+        color: rgba(0, 0, 0, 0.9);
+    }
+}
+
+.primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.primary:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.error {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+
+    &:hover {
+        color: #fff;
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+}
+
+.success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+
+    &:hover {
+        color: #fff;
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+}
+
+.warning {
+    color: #212529;
+    background-color: #ffc107;
+    border-color: #ffc107;
+
+    &:hover {
+        color: #212529;
+        background-color: #e0a800;
+        border-color: #d39e00;
     }
 }
 
 .outline {
-    color: var(--primary);
-    border-color: currentColor;
+    color: $green;
+    border-color: $green;
+    background-color: $white;
 
     &:hover {
-        border-color: currentColor;
-        background-color: rgba(254, 44, 85, 0.06);
+        border-color: $green;
+        background-color: $green-light;
+        color: $white;
     }
 }
 
@@ -71,8 +119,6 @@
     }
 }
 
-// Disabled
-
 // Button sizes
 .small {
     min-width: 88px;
@@ -80,6 +126,11 @@
 }
 
 .large {
-    padding: 14px 16px;
-    min-width: 140px;
+    padding: 12px 10px;
+    width: 100%;
+}
+
+.title {
+    font-size: 0.6rem;
+    font-weight: 600;
 }

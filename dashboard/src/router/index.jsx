@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { DefaultLayout, GuestLayout } from '../layouts';
-import { Brand, Category, Home, SignIn, SignUp } from '../pages';
+import { Brand, Category, Home, SignIn, SignUp, User } from '../pages';
 
 // Child Pages
 import {
@@ -22,6 +22,10 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard',
                 element: <Home />,
+            },
+            {
+                path: '/user',
+                element: <User />,
             },
             {
                 path: '/brands/*',

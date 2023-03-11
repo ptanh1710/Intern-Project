@@ -44,9 +44,51 @@
     }
 }
 
+.options {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+
+    span {
+        font-size: 0.6rem;
+    }
+
+    a {
+        font-weight: 600;
+        color: $green;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+}
+
+// Animation
+
+// Responsive
 @media screen and (max-width: 1000px) {
     .wrapper {
-        width: 50%;
+        width: 60%;
+        padding: 0.5rem;
+    }
+
+    .image {
+        display: none;
+    }
+
+    .container {
+        h4 {
+            padding-bottom: 0.8rem;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .wrapper {
+        width: 90%;
+        padding: 0.2rem;
     }
 
     .image {

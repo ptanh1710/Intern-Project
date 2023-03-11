@@ -57,4 +57,8 @@ class AuthController extends Controller
             'success' => true,
         ]);
     }
+
+    public function me() {
+        return $this->user();
+    }
 }
